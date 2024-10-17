@@ -23,7 +23,11 @@ export class ContentComponent {
         login: input.login,
         password: input.password
       }
-    );
+    ).then((response: any) => {
+      console.log(response.data);
+    }).catch((error: any) => {
+      console.error(error);
+    });
   }
 
   onRegister(input: any): void {
@@ -36,7 +40,11 @@ export class ContentComponent {
         login: input.login,
         password: input.password
       }
-    );
+    ).then((response: any) => {
+      console.log(response.data);
+    }).catch((error: any) => {
+      console.error(error);
+    });
   }
 
 }
