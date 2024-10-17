@@ -3,17 +3,27 @@ import { WelcomeContentComponent } from "../welcome-content/welcome-content.comp
 import { LoginFormComponent } from "../login-form/login-form.component";
 import { AxiosService } from '../axios.service';
 import { first } from 'rxjs';
+import { ButtonsComponent } from "../buttons/buttons.component";
+import { NgIf } from '@angular/common';
+import { AuthContentComponent } from "../auth-content/auth-content.component";
 
 @Component({
   selector: 'app-content',
   standalone: true,
-  imports: [WelcomeContentComponent, LoginFormComponent],
+  imports: [WelcomeContentComponent, LoginFormComponent, ButtonsComponent,
+    NgIf, AuthContentComponent],
   templateUrl: './content.component.html',
   styleUrl: './content.component.css'
 })
 export class ContentComponent {
 
+  componentToShow: string = "welcome";
+
   constructor(private axiosService: AxiosService) { }
+
+  showComponent(componentToShow: string): void {
+    this.componentToShow = componentToShow;
+  }
 
   onLogin(input: any): void {
     this.axiosService.request(
@@ -24,7 +34,8 @@ export class ContentComponent {
         password: input.password
       }
     ).then((response: any) => {
-      console.log(response.data);
+      this.axiosService.setAuthToken(response.data.token);
+      this.componentToShow = "messages";
     }).catch((error: any) => {
       console.error(error);
     });
@@ -41,7 +52,8 @@ export class ContentComponent {
         password: input.password
       }
     ).then((response: any) => {
-      console.log(response.data);
+      this.axiosService.setAuthToken(response.data.token);
+      this.componentToShow = "messages";
     }).catch((error: any) => {
       console.error(error);
     });
