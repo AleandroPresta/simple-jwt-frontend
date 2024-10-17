@@ -1,3 +1,6 @@
 <div>
-    <app-welcome-content></app-welcome-content>
+    <app-login-form 
+    (onSubmitLoginEvent)="onLogin($event)"
+    (onSubmitRegisterEvent)="onRegister($event)"
+    ></app-login-form>
 </div>
